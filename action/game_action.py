@@ -18,7 +18,8 @@ class GameAction:
         for i in range(len(state.hand)):
             if self.is_card(state.hand[i]):
                 return PlayCard(i)
-        breakpoint()
+        # If we can't find the card, return None to indicate invalid action
+        return None
     def __str__(self):
         if self.card is None:
             return "End Turn"
