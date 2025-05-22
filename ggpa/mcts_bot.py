@@ -121,11 +121,34 @@ class TreeNode:
     def rollout(self, state):
         while not state.ended():
             actions = state.get_actions()
-            action = random.choice(actions)
+            
+            player_hp = state.player.health
+
+            block_actions = [
+                a for a in actions 
+                if hasattr(a, 'card') and a.card is not None and 
+                ('Defend' in a.card[0] or 'Shrug' in a.card[0])
+            ]
+
+            avoid_damage = [
+                a for a in actions 
+                if hasattr(a, 'card') and a.card is not None and 
+                'Offering' not in a.card[0]
+            ]
+
+            if player_hp <= 6 and block_actions:
+                action = random.choice(block_actions)
+            elif player_hp <= 5 and avoid_damage:
+                action = random.choice(avoid_damage)
+            else:
+                action = random.choice(actions)
+
             state.step(action)
 
         score = self.score(state)
         self.backpropagate(score)
+
+
 
     # RECOMMENDED: backpropagate result to this and parent
     def backpropagate(self, result):
