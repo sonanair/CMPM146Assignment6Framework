@@ -188,3 +188,18 @@ class MCTSAgent(GGPA):
     # REQUIRED METHOD: Our scenarios do not involve targeting cards
     def choose_card_target(self, battle_state: BattleState, list_name: str, card_list: list[Card]) -> Card:
         return card_list[0]
+
+# intro (≥95% with 15 iters)
+#python3 main.py -s intro     -n 15  -p 0.5 -g 100
+
+# giant (≥95% with 15 iters)
+#python3 main.py -s giant     -n 15  -p 0.5 -g 100
+
+# offerings (≈80–90% with 15 iters)
+#python3 main.py -s offerings -n 15  -p 0.5 -g 100
+
+# lowhp (≈65–80% with 15 iters)
+#python3 main.py -s lowhp     -n 15  -p 0.5 -g 100
+
+# challenge (bonus: requires many iters—try 10 000+)
+#python3 main.py -s challenge -n 10000 -p 0.5 -g 20
